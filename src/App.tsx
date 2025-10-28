@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 
 import system from '@/shared/theme';
-import AppRouter from '@/shared/AppRouter';
+import AppRouter from '@/app/router/AppRouter';
 
 function App() {
   return (

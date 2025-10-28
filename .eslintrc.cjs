@@ -17,7 +17,7 @@ module.exports = {
       files: [
         '**/__tests__/**/*',
         '**/*.test.{ts,tsx,js,jsx}',
-        'src/setupTests.{ts,js}',
+        'src/test/setupTests.{ts,js}',
         'src/shared/test-utils/**.{ts,js,tsx,jsx}',
       ],
       rules: {
