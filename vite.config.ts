@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
@@ -10,14 +9,14 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src'),
+      '@': resolve(__dirname, 'src/'),
     },
-    // Tambahkan ini 👇
     extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/setupTests.ts'],
+    css: false,
   },
 });

@@ -18,6 +18,7 @@ module.exports = {
         '**/__tests__/**/*',
         '**/*.test.{ts,tsx,js,jsx}',
         'src/setupTests.{ts,js}',
+        'src/shared/test-utils/**.{ts,js,tsx,jsx}',
       ],
       rules: {
         'import/no-extraneous-dependencies': [

@@ -1,20 +1,14 @@
-import { HashRouter, Route, Routes } from 'react-router-dom';
-import NotFound from '@/pages/NotFound';
-import Home from '@/pages/Home';
+import { ChakraProvider } from '@chakra-ui/react';
 
-export function App() {
+import system from '@/shared/theme';
+import AppRouter from '@/shared/AppRouter';
+
+function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <ChakraProvider value={system}>
+      <AppRouter />
+    </ChakraProvider>
   );
 }
 
-export function WrappedApp() {
-  return (
-    <HashRouter>
-      <App />
-    </HashRouter>
-  );
-}
+export default App;
