@@ -3,15 +3,29 @@ import type { User } from '../types/user.types';
 
 interface UserStore {
   userList: User[];
-  selectedHoverUser: User | null;
+  selectedUser: User | null;
   setUserList: (users: User[]) => void;
-  setSelectedHoverUser: (users: User) => void;
+  setSelectedUser: (users: User) => void;
+  addUser: (user: User) => void;
+  updateUser: (user: User) => void;
+  deleteUser: (user: User) => void;
 }
 
 export const useUserStore = create<UserStore>((set) => ({
   userList: [],
-  selectedHoverUser: null,
+  selectedUser: null,
   setUserList: (users: User[]) => set(() => ({ userList: users })),
-  setSelectedHoverUser: (user: User) =>
-    set(() => ({ selectedHoverUser: user })),
+  setSelectedUser: (user: User) => set(() => ({ selectedUser: user })),
+  addUser: (user: User) =>
+    set((state) => ({ userList: [...state.userList, user] })),
+  updateUser: (updatedUser: User) =>
+    set((state) => ({
+      userList: state.userList.map((user) =>
+        user.id === updatedUser.id ? updatedUser : user
+      ),
+    })),
+  deleteUser: (user: User) =>
+    set((state) => ({
+      userList: state.userList.filter((userState) => user.id === userState.id),
+    })),
 }));

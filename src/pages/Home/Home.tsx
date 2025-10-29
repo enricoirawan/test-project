@@ -1,5 +1,6 @@
+import AddAndUpdateContactDialog from '@/features/users/components/AddAndUpdateContactDialog';
 import UserList from '@/features/users/components/UserList';
-import { Box, Text, Button } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
         <Text as="h3" textStyle="2xl" color="white">
           My Contacts
         </Text>
-        <Button bg="brand.800">Add Contact</Button>
+        <AddAndUpdateContactDialog />
       </Box>
       <UserList />
     </Box>

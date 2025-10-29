@@ -26,8 +26,10 @@ function UserItem({ user }: UserItemProps) {
       <LazyImage
         minH="400px"
         w="full"
-        src={`https://picsum.photos/400/600?random=${user.id}`}
+        src={`https://picsum.photos/400/600?random=${user.id % 1000}.webp`}
         objectFit="cover"
+        backdropFilter="blur(15px)"
+        boxShadow="dark-lg"
       />
       <Box
         pos="absolute"
