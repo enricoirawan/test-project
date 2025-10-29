@@ -110,9 +110,6 @@ function UserItem({ user }: UserItemProps) {
             opacity={{ base: 1, md: 0 }}
             transform={{ base: 'translateY(0)', md: 'translateY(-100%)' }}
             transition="all 0.3s ease"
-            borderBottom="1px solid"
-            borderLeft="1px solid"
-            borderColor="whiteAlpha.400"
             borderBottomLeftRadius="md"
             onClick={(e) => {
               e.stopPropagation();
@@ -120,7 +117,7 @@ function UserItem({ user }: UserItemProps) {
             as="button"
             cursor="pointer"
           >
-            <Icon size="xs" color="brand.900" fill="whiteAlpha.500">
+            <Icon size="xs" color="brand.900" fill="whiteAlpha.900">
               <Pencil />
             </Icon>
             <Text textStyle="sm" color="brand.900">
