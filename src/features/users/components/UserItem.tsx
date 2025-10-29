@@ -58,7 +58,7 @@ function UserItem({ user }: UserItemProps) {
         transform={{ base: 'translateY(0)', md: 'translateY(100%)' }}
         transition="all 0.3s ease"
         borderTop="1px solid"
-        borderColor="brand.900"
+        borderColor="whiteAlpha.400"
       >
         <Text textStyle="lg" color="white" textAlign="start">
           {user.name}
@@ -112,7 +112,7 @@ function UserItem({ user }: UserItemProps) {
             transition="all 0.3s ease"
             borderBottom="1px solid"
             borderLeft="1px solid"
-            borderColor="brand.900"
+            borderColor="whiteAlpha.400"
             borderBottomLeftRadius="md"
             onClick={(e) => {
               e.stopPropagation();
