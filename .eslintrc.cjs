@@ -19,6 +19,7 @@ module.exports = {
         '**/*.test.{ts,tsx,js,jsx}',
         'src/test/setupTests.{ts,js}',
         'src/shared/test-utils/**.{ts,js,tsx,jsx}',
+        'src/app/providers/QueryProvider.tsx',
       ],
       rules: {
         'import/no-extraneous-dependencies': [
@@ -44,6 +45,7 @@ module.exports = {
   },
   rules: {
     'react/react-in-jsx-scope': 0,
+    'import/prefer-default-export': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
