@@ -7,7 +7,7 @@ interface UserStore {
   setUserList: (users: User[]) => void;
   setSelectedUser: (users: User) => void;
   addUser: (user: User) => void;
-  updateUser: (user: User) => void;
+  editUser: (user: User) => void;
   deleteUser: (user: User) => void;
 }
 
@@ -18,7 +18,7 @@ export const useUserStore = create<UserStore>((set) => ({
   setSelectedUser: (user: User) => set(() => ({ selectedUser: user })),
   addUser: (user: User) =>
     set((state) => ({ userList: [...state.userList, user] })),
-  updateUser: (updatedUser: User) =>
+  editUser: (updatedUser: User) =>
     set((state) => ({
       userList: state.userList.map((user) =>
         user.id === updatedUser.id ? updatedUser : user

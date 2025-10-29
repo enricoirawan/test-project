@@ -29,7 +29,7 @@ export const userSchema = z.object({
   email: z.email('Invalid email format').min(1, 'Email is required'),
   address: addressSchema,
   phone: z.string().min(1, 'Phone number is required'),
-  website: z.url('Invalid website format').min(1, 'Website is required'),
+  website: z.string().min(1, 'Website is required'),
   company: companySchema,
 });
 

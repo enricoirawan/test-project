@@ -1,38 +1,77 @@
 import GlassmorphicDialog from '@/shared/components/GlassmorphicDialog';
-import { Button, Field, Input, Stack } from '@chakra-ui/react';
+import { Field, Input, Stack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRef, useState } from 'react';
+import { Dispatch, ReactNode, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserFormSchema, userSchema } from '../schemas/UserSchema';
 import { useUserStore } from '../store/useUserStore';
 import { User } from '../types/user.types';
 
-function AddAndUpdateContactDialog() {
+interface AddAndEditContactDialogProps {
+  trigger: ReactNode;
+  open: boolean;
+  setOpen: Dispatch<React.SetStateAction<boolean>>;
+}
+
+function AddAndEditContactDialog({
+  trigger,
+  open,
+  setOpen,
+}: AddAndEditContactDialogProps) {
   const formRef = useRef<HTMLFormElement>(null);
-  const { addUser } = useUserStore();
+  const { addUser, selectedUser, editUser } = useUserStore();
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<UserFormSchema>({
     resolver: zodResolver(userSchema),
     defaultValues: {
+      name: '',
+      username: '',
+      email: '',
       address: {
+        street: '',
+        suite: '',
+        city: '',
+        zipcode: '',
         geo: {
           lat: '',
           lng: '',
         },
       },
-      company: {},
+      phone: '',
+      website: '',
+      company: {
+        name: '',
+        catchPhrase: '',
+        bs: '',
+      },
     },
   });
 
-  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (open && selectedUser) {
+      setValue('name', selectedUser.name);
+      setValue('username', selectedUser.username);
+      setValue('email', selectedUser.email);
+      setValue('address', selectedUser.address);
+      setValue('phone', selectedUser.phone);
+      setValue('website', selectedUser.website);
+      setValue('company', selectedUser.company);
+    }
+  }, [open, selectedUser]);
 
   const onSubmit = (data: UserFormSchema) => {
+    let id = Date.now() + Math.floor(Math.random() * 1000);
+
+    if (selectedUser) {
+      id = selectedUser.id;
+    }
     const addUserPayload: User = {
-      id: Date.now() + Math.floor(Math.random() * 1000),
+      id,
       name: data.name,
       username: data.username,
       email: data.email,
@@ -41,30 +80,24 @@ function AddAndUpdateContactDialog() {
       website: data.website,
       company: data.company,
     };
-    addUser(addUserPayload);
+
+    if (selectedUser) {
+      editUser(addUserPayload);
+    } else {
+      addUser(addUserPayload);
+    }
+
     setOpen(false);
   };
 
   return (
     <GlassmorphicDialog
-      trigger={
-        <Button
-          colorScheme="whiteAlpha"
-          size="lg"
-          backdropFilter="blur(10px)"
-          bg="whiteAlpha.200"
-          border="1px solid"
-          borderColor="whiteAlpha.400"
-          _hover={{
-            bg: 'whiteAlpha.300',
-          }}
-        >
-          Add Contact
-        </Button>
-      }
-      title="Add Contact"
+      trigger={trigger}
+      title={`${selectedUser ? 'Edit' : 'Add'} Contact`}
       open={open}
-      onOpenChange={(e) => setOpen(e.open)}
+      onOpenChange={(e) => {
+        setOpen(e.open);
+      }}
       onConfirm={() => {
         formRef.current?.requestSubmit();
       }}
@@ -200,4 +233,4 @@ function AddAndUpdateContactDialog() {
   );
 }
 
-export default AddAndUpdateContactDialog;
+export default AddAndEditContactDialog;
