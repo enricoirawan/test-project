@@ -17,10 +17,10 @@ function UserList() {
   const { userList, setUserList } = useUserStore();
 
   useEffect(() => {
-    if (data) {
+    if (isSuccess && !userList.length) {
       setUserList(data);
     }
-  }, [data]);
+  }, [isSuccess, data, userList.length]);
 
   const renderContent = (): JSX.Element | JSX.Element[] => {
     // success state

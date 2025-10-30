@@ -1,30 +1,24 @@
 import GlassmorphicDialog from '@/shared/components/GlassmorphicDialog';
 import { Field, Input, Stack } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Dispatch, ReactNode, useEffect, useRef } from 'react';
+import { Dispatch, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { UserFormSchema, userSchema } from '../schemas/UserSchema';
 import { useUserStore } from '../store/useUserStore';
 import { User } from '../types/user.types';
 
-interface AddAndEditContactDialogProps {
-  trigger: ReactNode;
+interface AddUserDialogProps {
   open: boolean;
   setOpen: Dispatch<React.SetStateAction<boolean>>;
 }
 
-function AddAndEditContactDialog({
-  trigger,
-  open,
-  setOpen,
-}: AddAndEditContactDialogProps) {
+function AddUserDialog({ open, setOpen }: AddUserDialogProps) {
   const formRef = useRef<HTMLFormElement>(null);
-  const { addUser, selectedUser, editUser } = useUserStore();
+  const { addUser } = useUserStore();
 
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<UserFormSchema>({
     resolver: zodResolver(userSchema),
@@ -52,24 +46,9 @@ function AddAndEditContactDialog({
     },
   });
 
-  useEffect(() => {
-    if (open && selectedUser) {
-      setValue('name', selectedUser.name);
-      setValue('username', selectedUser.username);
-      setValue('email', selectedUser.email);
-      setValue('address', selectedUser.address);
-      setValue('phone', selectedUser.phone);
-      setValue('website', selectedUser.website);
-      setValue('company', selectedUser.company);
-    }
-  }, [open, selectedUser]);
-
   const onSubmit = (data: UserFormSchema) => {
-    let id = Date.now() + Math.floor(Math.random() * 1000);
+    const id = Date.now() + Math.floor(Math.random() * 1000);
 
-    if (selectedUser) {
-      id = selectedUser.id;
-    }
     const addUserPayload: User = {
       id,
       name: data.name,
@@ -81,19 +60,13 @@ function AddAndEditContactDialog({
       company: data.company,
     };
 
-    if (selectedUser) {
-      editUser(addUserPayload);
-    } else {
-      addUser(addUserPayload);
-    }
-
+    addUser(addUserPayload);
     setOpen(false);
   };
 
   return (
     <GlassmorphicDialog
-      trigger={trigger}
-      title={`${selectedUser ? 'Edit' : 'Add'} Contact`}
+      title="Add User"
       open={open}
       onOpenChange={(e) => {
         setOpen(e.open);
@@ -233,4 +206,4 @@ function AddAndEditContactDialog({
   );
 }
 
-export default AddAndEditContactDialog;
+export default AddUserDialog;

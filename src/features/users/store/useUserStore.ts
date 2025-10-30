@@ -26,6 +26,6 @@ export const useUserStore = create<UserStore>((set) => ({
     })),
   deleteUser: (user: User) =>
     set((state) => ({
-      userList: state.userList.filter((userState) => user.id === userState.id),
+      userList: state.userList.filter((userState) => user.id !== userState.id),
     })),
 }));

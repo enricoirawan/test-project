@@ -1,9 +1,8 @@
-import { Box, GridItem, Text, Icon } from '@chakra-ui/react';
-import { Phone, Mail, Pencil } from 'lucide-react';
 import LazyImage from '@/shared/components/LazyImage';
-import { useEffect, useState } from 'react';
+import { Box, GridItem, Icon, Text } from '@chakra-ui/react';
+import { Mail, Phone } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { User } from '../types/user.types';
-import AddAndEditContactDialog from './AddAndEditContactDialog';
 import { useUserStore } from '../store/useUserStore';
 
 interface UserItemProps {
@@ -11,14 +10,8 @@ interface UserItemProps {
 }
 
 function UserItem({ user }: UserItemProps) {
-  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const { setSelectedUser } = useUserStore();
-
-  useEffect(() => {
-    if (open) {
-      setSelectedUser(user);
-    }
-  }, [open]);
 
   return (
     <GridItem
@@ -35,7 +28,10 @@ function UserItem({ user }: UserItemProps) {
           transform: 'translateY(0)',
         },
       }}
-      onClick={() => {}}
+      onClick={() => {
+        setSelectedUser(user);
+        navigate('/detail');
+      }}
     >
       <LazyImage
         minH="400px"
@@ -52,6 +48,7 @@ function UserItem({ user }: UserItemProps) {
         left={0}
         right={0}
         backdropFilter="blur(15px)"
+        filter="brightness(0.9) saturate(1.05)"
         boxShadow="dark-lg"
         p={2}
         opacity={{ base: 1, md: 0 }}
@@ -90,42 +87,6 @@ function UserItem({ user }: UserItemProps) {
           </Text>
         </Box>
       </Box>
-
-      <AddAndEditContactDialog
-        open={open}
-        setOpen={setOpen}
-        trigger={
-          <Box
-            className="overlay-box"
-            display="flex"
-            alignItems="center"
-            justifyContent="flex-end"
-            pos="absolute"
-            top={0}
-            right={0}
-            backdropFilter="blur(15px)"
-            boxShadow="dark-lg"
-            spaceX={2}
-            p={2}
-            opacity={{ base: 1, md: 0 }}
-            transform={{ base: 'translateY(0)', md: 'translateY(-100%)' }}
-            transition="all 0.3s ease"
-            borderBottomLeftRadius="md"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            as="button"
-            cursor="pointer"
-          >
-            <Icon size="xs" color="brand.900" fill="whiteAlpha.900">
-              <Pencil />
-            </Icon>
-            <Text textStyle="sm" color="brand.900">
-              Edit
-            </Text>
-          </Box>
-        }
-      />
     </GridItem>
   );
 }

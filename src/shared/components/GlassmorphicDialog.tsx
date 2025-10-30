@@ -2,7 +2,6 @@ import { Button, CloseButton, Dialog, Portal } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
 interface GlassmorphicDialogProps extends Dialog.RootProps {
-  trigger: ReactNode;
   title: string;
   children: ReactNode;
   confirmText?: string;
@@ -18,7 +17,8 @@ interface GlassmorphicDialogProps extends Dialog.RootProps {
 }
 
 function GlassmorphicDialog({
-  trigger,
+  open,
+  onOpenChange,
   title,
   children,
   confirmText = 'Save',
@@ -34,8 +34,7 @@ function GlassmorphicDialog({
   ...dialogRootProps
 }: GlassmorphicDialogProps) {
   return (
-    <Dialog.Root {...dialogRootProps}>
-      <Dialog.Trigger asChild>{trigger}</Dialog.Trigger>
+    <Dialog.Root {...dialogRootProps} open={open} onOpenChange={onOpenChange}>
       <Portal>
         <Dialog.Backdrop backdropFilter="blur(8px)" bg="blackAlpha.400" />
         <Dialog.Positioner>
@@ -46,6 +45,8 @@ function GlassmorphicDialog({
             borderRadius="2xl"
             boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
             color="white"
+            backdropFilter="blur(15px)"
+            filter="brightness(0.9) saturate(1.05)"
             {...contentProps}
           >
             <Dialog.Header
