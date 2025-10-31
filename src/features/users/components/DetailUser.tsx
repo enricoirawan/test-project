@@ -70,8 +70,7 @@ function DetailUser({ open, setOpen }: DetailUserProps) {
     }
   };
 
-  if (open && !user)
-    return <Text>Something wrong, please try again later...</Text>;
+  if (!user) return <Text>Something wrong, please try again later...</Text>;
 
   return (
     <GlassmorphicDialog
@@ -255,18 +254,32 @@ function DetailUser({ open, setOpen }: DetailUserProps) {
               </Field.Root>
 
               <GlassmorphicButton
-                variant="outline"
+                variant={{
+                  base: 'outline',
+                  mdDown: 'solid',
+                }}
                 label="Edit"
                 color="white"
+                bg={{
+                  base: '',
+                  mdDown: 'brand.900',
+                }}
                 bgHover="brand.900"
                 type="submit"
               />
 
               <GlassmorphicButton
-                variant="outline"
+                variant={{
+                  base: 'outline',
+                  mdDown: 'solid',
+                }}
                 label="Delete"
                 onClick={onDeleteUser}
                 color="white"
+                bg={{
+                  base: '',
+                  mdDown: 'red.500',
+                }}
                 bgHover="red.500"
               />
             </Stack>
