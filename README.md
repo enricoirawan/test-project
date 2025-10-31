@@ -2,6 +2,10 @@
 
 A simple React.js app for the OBS Project Test
 
+## Node Version
+
+This project requires Node version 18.20.
+
 ## Demo
 
 Access this link for project demo https://playful-arithmetic-1d09cb.netlify.app
