@@ -7,7 +7,6 @@ function AppRouter() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </HashRouter>
