@@ -1,5 +1,5 @@
 import { Button, CloseButton, Dialog, Portal } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { ReactNode, useRef } from 'react';
 
 interface GlassmorphicDialogProps extends Dialog.RootProps {
   title: string;
@@ -33,8 +33,15 @@ function GlassmorphicDialog({
   footerProps,
   ...dialogRootProps
 }: GlassmorphicDialogProps) {
+  const ref = useRef<HTMLInputElement | null>(null);
+
   return (
-    <Dialog.Root {...dialogRootProps} open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root
+      {...dialogRootProps}
+      open={open}
+      onOpenChange={onOpenChange}
+      initialFocusEl={() => ref.current}
+    >
       <Portal>
         <Dialog.Backdrop backdropFilter="blur(8px)" bg="blackAlpha.400" />
         <Dialog.Positioner>
